@@ -1,0 +1,11 @@
+---
+version: "3.7"
+services:
+  ddclient:
+    build:
+      context: .
+    image: ghcr.io/torresmvl/ddclient
+    command: -foreground -debug -noquiet -verbose
+    volumes:
+      - //apps/swarm/glab-ddclient/config/ddclient.dev.conf:/etc/ddclient/ddclient.conf:ro
+    restart: always
