@@ -2,10 +2,19 @@
 version: "3.7"
 services:
   ddclient:
-    image: ghcr.io/torresmvl/ddclient
-    command: -foreground -noquiet -verbose
+    image: ghcr.io/torresmvl/ddclient:latest
+    command: --foreground --syslog --verbose --file /run/secrets/ddclient.conf --cache /etc/ddclient/.cache/ddclient.cache
+    networks:
+      - private
     volumes:
-      - ./config:/etc/ddclient:ro
+      - cache:/etc/ddclient/.cache:rw
+    secrets:
+      - ddclient.conf
+    healthcheck:
+      test: ["CMD", "curl", "https://yourdomain.tld"]
+      timeout: 30s
+      interval: 10s
+      retries: 5
     deploy:
       mode: replicated
       replicas: 1
@@ -16,3 +25,17 @@ services:
           memory: 128M
         reservations:
           memory: 64M
+
+secrets:
+  ddclient.conf:
+    file: ./config/ddclient.conf
+
+networks:
+  private:
+    driver: overlay
+    attachable: false
+    driver_opts:
+      encrypted: "true"
+
+volumes:
+  cache:
