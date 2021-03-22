@@ -1,7 +1,7 @@
-FROM alpine:edge as baseImage
+FROM alpine:3.13 as baseImage
 
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
-    apk add --update --no-cache ca-certificates \
+    apk --update add --no-cache ca-certificates \
     ddclient \
     drill \
     curl \
