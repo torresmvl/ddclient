@@ -1,5 +1,5 @@
 ---
-version: "3.7"
+version: '3.8'
 services:
   ddclient:
     image: ghcr.io/torresmvl/ddclient:latest
@@ -11,7 +11,7 @@ services:
     secrets:
       - ddclient.conf
     healthcheck:
-      test: ["CMD", "curl", "https://yourdomain.tld"]
+      test: ['CMD', 'curl', 'https://yourdomain.tld']
       timeout: 30s
       interval: 10s
       retries: 5
@@ -35,7 +35,7 @@ networks:
     driver: overlay
     attachable: false
     driver_opts:
-      encrypted: "true"
+      encrypted: 'true'
 
 volumes:
   cache:
