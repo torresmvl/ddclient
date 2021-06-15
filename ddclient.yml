@@ -3,11 +3,11 @@ version: '3.8'
 services:
   ddclient:
     image: ghcr.io/torresmvl/ddclient:latest
-    command: --foreground --syslog --verbose --file /run/secrets/ddclient.conf --cache /etc/ddclient/.cache/ddclient.cache
+    command: --foreground --syslog --verbose --file /run/secrets/ddclient.conf
     networks:
       - private
     volumes:
-      - cache:/etc/ddclient/.cache:rw
+      - cache:/var/cache/ddclient:rw
     secrets:
       - ddclient.conf
     healthcheck:
